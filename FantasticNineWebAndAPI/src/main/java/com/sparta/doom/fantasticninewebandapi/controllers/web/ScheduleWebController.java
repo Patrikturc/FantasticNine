@@ -29,8 +29,6 @@ public class ScheduleWebController {
     // TODO Delete
     // TODO Web Page design
     public final WebClient webClient;
-    @Value("${jwt.auth}")
-    private String AUTH_HEADER;
     @Autowired
     public ScheduleWebController(SchedulesService schedulesService, WebClient webClient) {
         this.webClient = webClient;
@@ -132,7 +130,6 @@ public class ScheduleWebController {
         } else {
             webClient.post()
                     .uri("api/schedules/")
-                    .header(AUTH_HEADER, "Bearer " + jwtToken)
                     .bodyValue(schedule);
             return "redirect:/schedules/schedule/" + schedule.getId() + "/";
         }
@@ -145,7 +142,6 @@ public class ScheduleWebController {
         } else {
             webClient.put()
                     .uri("api/schedules/" + id)
-                    .header(AUTH_HEADER, "Bearer " + jwtToken)
                     .bodyValue(schedule)
                     .retrieve()
                     .bodyToMono(ScheduleDoc.class)
@@ -159,7 +155,6 @@ public class ScheduleWebController {
         webClient
                 .delete()
                 .uri("api/schedules/" + id)
-                .header(AUTH_HEADER, "Bearer " + jwtToken)
                 .retrieve()
                 .bodyToMono(ScheduleDoc.class)
                 .block();

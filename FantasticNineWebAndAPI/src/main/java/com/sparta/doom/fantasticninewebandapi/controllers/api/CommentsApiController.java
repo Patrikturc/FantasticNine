@@ -2,7 +2,6 @@ package com.sparta.doom.fantasticninewebandapi.controllers.api;
 
 import com.sparta.doom.fantasticninewebandapi.models.CommentDoc;
 import com.sparta.doom.fantasticninewebandapi.services.CommentsService;
-import com.sparta.doom.fantasticninewebandapi.services.SecurityService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,12 +15,10 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -31,12 +28,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CommentsApiController {
 
     private final CommentsService commentsService;
-    private final SecurityService securityService;
 
     @Autowired
-    public CommentsApiController(CommentsService commentsService, SecurityService securityService) {
+    public CommentsApiController(CommentsService commentsService) {
         this.commentsService = commentsService;
-        this.securityService = securityService;
     }
 
 //    @GetMapping("/movies/{movie}/comments")

@@ -22,9 +22,6 @@ public class TheatersWebController {
     private final WebClient webClient;
     private final TheaterService theaterService;
 
-    @Value("${jwt.auth}")
-    private String AUTH_HEADER;
-
     private static final int PAGE_SIZE = 15;
 
     public TheatersWebController(WebClient webClient, TheaterService theaterService, TheaterRepository theaterRepository, TheaterService theaterService1) {
@@ -150,7 +147,6 @@ public class TheatersWebController {
         TheaterDoc theater = webClient
                 .get()
                 .uri("/api/theaters/" + id)
-                .header(AUTH_HEADER, "Bearer " + jwtToken)
                 .retrieve()
                 .bodyToMono(TheaterDoc.class)
                 .block();
@@ -163,7 +159,6 @@ public class TheatersWebController {
         webClient
                 .put()
                 .uri("/api/theaters")
-                .header(AUTH_HEADER, "Bearer " + jwtToken)
                 .bodyValue(theater)
                 .retrieve()
                 .bodyToMono(TheaterDoc.class)
@@ -176,7 +171,6 @@ public class TheatersWebController {
         webClient
                 .delete()
                 .uri("/api/theaters/" + id)
-                .header(AUTH_HEADER, "Bearer " + jwtToken)
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
